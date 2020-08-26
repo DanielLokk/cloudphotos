@@ -57,7 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: getImage,
-        tooltip: 'Pick Image',
         child: Icon(
           MdiIcons.arrowUpBoldOutline,
           color: Colors.white,
