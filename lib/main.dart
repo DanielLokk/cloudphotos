@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -12,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CloudPhotos',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.white,
+        brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'CloudPhotos'),
@@ -29,11 +33,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  File _image;
+  final picker = ImagePicker();
 
-  void _incrementCounter() {
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
     setState(() {
-      _counter++;
+      _image = File(pickedFile.path);
     });
   }
 
@@ -44,28 +51,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+        child: _image == null ? Text('No image selected.') : Image.file(_image),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: getImage,
+        tooltip: 'Pick Image',
         child: Icon(
           MdiIcons.arrowUpBoldOutline,
           size: 20,
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
