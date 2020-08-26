@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'CloudPhotos',
       theme: ThemeData(
         primaryColor: Colors.white,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'CloudPhotos'),
@@ -49,17 +49,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.grey,
       ),
       body: Center(
         child: _image == null ? Text('No image selected.') : Image.file(_image),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.black,
         onPressed: getImage,
         tooltip: 'Pick Image',
         child: Icon(
           MdiIcons.arrowUpBoldOutline,
-          size: 20,
+          color: Colors.white,
+          size: 25,
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
